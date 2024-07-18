@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Movements</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Vehicle Movements</h1>
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>License Plate</th>
+                    <th>Timestamp</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movement in movements %}
+                <tr>
+                    <td>{{ movement[0] }}</td>
+                    <td>{{ movement[1] }}</td>
+                    <td>{{ movement[2] }}</td>
+                    <td>{{ movement[3] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-primary">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

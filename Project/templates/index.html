@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Management System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Welcome to the Vehicle Management System</h1>
+        
+        <!-- Navigation -->
+        <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="upload-tab" data-toggle="tab" href="#upload" role="tab" aria-controls="upload" aria-selected="false">Upload Image</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="occupancy-tab" data-toggle="tab" href="#occupancy" role="tab" aria-controls="occupancy" aria-selected="false">Parking Occupancy</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="results-tab" data-toggle="tab" href="#results" role="tab" aria-controls="results" aria-selected="false">Recognition Results</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="movements-tab" data-toggle="tab" href="#movements" role="tab" aria-controls="movements" aria-selected="false">Vehicle Movements</a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <!-- Home Section -->
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row mt-4">
+                    <div class="col text-center">
+                        <h2>Welcome to the Vehicle Management System</h2>
+                        <p>Select a tab above to proceed.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upload Image Section -->
+            <div class="tab-pane fade" id="upload" role="tabpanel" aria-labelledby="upload-tab">
+                <div class="container mt-5">
+                    <h1 class="text-center">Upload an Image</h1>
+                    <form action="/upload" method="post" enctype="multipart/form-data" class="mt-4">
+                        <div class="form-group">
+                            <input type="file" name="file" class="form-control-file" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Parking Occupancy Section -->
+            <div class="tab-pane fade" id="occupancy" role="tabpanel" aria-labelledby="occupancy-tab">
+                <div class="container mt-5">
+                    <h1 class="text-center">Parking Occupancy</h1>
+                    <table class="table table-striped mt-4">
+                        <thead>
+                            <tr>
+                                <th>Parking Lot ID</th>
+                                <th>Occupied Spots</th>
+                                <th>Total Spots</th>
+                            </tr>
+                        </thead>
+                        <tbody id="occupancy-data">
+                            <!-- This section will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Recognition Results Section -->
+            <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
+                <div class="container mt-5">
+                    <h1 class="text-center">Recognition Results</h1>
+                    <table class="table table-striped mt-4">
+                        <thead>
+                            <tr>
+                                <th>Plate</th>
+                                <th>Confidence</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in results['results'] %}
+                            <tr>
+                                <td>{{ result['plate'] }}</td>
+                                <td>{{ result['confidence'] }}%</td>
+                                <td>{{ 'Approved' if result['approved'] else 'Rejected' }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="text-center mt-4">
+                        <a href="/upload" class="btn btn-primary">Upload Another Image</a>
+                        <a href="/" class="btn btn-secondary">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle Movements Section -->
+            <div class="tab-pane fade" id="movements" role="tabpanel" aria-labelledby="movements-tab">
+                <div class="container mt-5">
+                    <h1 class="text-center">Vehicle Movements</h1>
+                    <table class="table table-striped mt-4">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>License Plate</th>
+                                <th>Timestamp</th>
+                                <th>Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for movement in movements %}
+                            <tr>
+                                <td>{{ movement[0] }}</td>
+                                <td>{{ movement[1] }}</td>
+                                <td>{{ movement[2] }}</td>
+                                <td>{{ movement[3] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="text-center mt-4">
+                        <a href="/" class="btn btn-primary">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

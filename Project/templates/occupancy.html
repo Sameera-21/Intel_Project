@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Occupancy</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Parking Occupancy</h1>
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Parking Lot ID</th>
+                    <th>Occupied Spots</th>
+                    <th>Total Spots</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lot, info in occupancy.items() %}
+                <tr>
+                    <td>{{ lot }}</td>
+                    <td>{{ info['occupied'] }}</td>
+                    <td>{{ info['total'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
